@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb'
 export class Database {
     private uri : string;
-    private client : typeof MongoClient;
+    private client :  MongoClient;
 
     constructor() {
         this.uri = 'mongodb://admin:admin@mongodb:27017';
@@ -21,9 +21,11 @@ export class Database {
     public addObjectToDatabase = async (collectionName : string, object : {}) => {
         try {
             const db = await this.connectToMongoDB();
-            const collection = db.collection(collectionName);
-            const result = await collection.insertOne(object);
-            console.log('Object added to the database:', result.insertedId);
+            if(db) {
+                const collection = db.collection(collectionName);
+                const result = await collection.insertOne(object);
+                console.log('Object added to the database:', result.insertedId);
+            }
         } catch (error) {
             console.error('Error adding object to the database:', error);
         } finally {
