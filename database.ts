@@ -1,14 +1,14 @@
 const { MongoClient } = require('mongodb');
 export class Database {
-    private uri : string
-    private client
+    private uri : string;
+    private client : typeof MongoClient;
 
     constructor() {
-        this.uri = 'mongodb://admin:admin@mongodb:27017\n';
+        this.uri = 'mongodb://admin:admin@mongodb:27017';
         this.client = new MongoClient(this.uri);
     }
 
-    public connectToMongoDB = async () => {
+    private connectToMongoDB = async () => {
         try {
             await this.client.connect();
             console.log('Connected to the MongoDB data-sender-docker');
@@ -27,9 +27,12 @@ export class Database {
         } catch (error) {
             console.error('Error adding object to the database:', error);
         } finally {
-            await this.client.close();
-            console.log('Connection to the MongoDB data-sender-docker closed');
+            console.log('Connection to the MongoDB');
         }
+    }
+
+    public closeConnection = async () => {
+        await this.client.close();
     }
 
 }
