@@ -9,14 +9,14 @@ export class apiGeoLoc {
                 `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`
             );
             if (result) {
-                const city: City = {
+                const value: City = {
                     name: result.results[0].name,
                     lat: result.results[0].latitude,
                     long: result.results[0].longitude,
                     timezone: result.results[0].timezone,
                     country: result.results[0].country,
                 };
-                return city;
+                return value;
             } else {
                 console.log("City not found");
                 return undefined;
