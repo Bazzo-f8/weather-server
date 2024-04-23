@@ -1,17 +1,21 @@
 import express from 'express';
 import {apiWeather} from "./src/apiWeather";
+import {apiGeoLoc} from "./src/apiGeoLoc";
 import bodyParser from "body-parser";
+import {City} from "./types/city";
 const app = express();
 app.use(bodyParser.json());
 const port = 3000;
 const weather = new apiWeather();
+const geoLoc = new apiGeoLoc();
+let city: City | undefined = undefined;
 
 
 
 // GET
 app.get('/current', async (req, res) => {
     try {
-        const data = await weather.getCurrent(); // Fetch data using the Axios client
+        const data = await weather.getCurrent(city?.lat, city?.long); // Fetch data using the Axios client
         res.json(data); // Send the data as JSON response
     } catch (error) {
         console.error('Error in route handler:', error);
@@ -21,7 +25,7 @@ app.get('/current', async (req, res) => {
 
 app.get('/hourly', async (req, res) => {
     try {
-        const data = await weather.getHourly(); // Fetch data using the Axios client
+        const data = await weather.getHourly(city?.lat, city?.long); // Fetch data using the Axios client
         res.json(data); // Send the data as JSON response
     } catch (error) {
         console.error('Error in route handler:', error);
@@ -31,7 +35,7 @@ app.get('/hourly', async (req, res) => {
 
 app.get('/daily', async (req, res) => {
     try {
-        const data = await weather.getDaily(); // Fetch data using the Axios client
+        const data = await weather.getDaily(city?.lat, city?.long); // Fetch data using the Axios client
         res.json(data); // Send the data as JSON response
     } catch (error) {
         console.error('Error in route handler:', error);
@@ -44,12 +48,13 @@ app.get('/daily', async (req, res) => {
 
 
 // POST
-app.post('/search-city', (req, res) => {
-    const { city } = req.body;
+app.post('/search-city',async (req, res) => {
+    const { value } = req.body;
     // Process the city data (e.g., query weather API)
-    console.log('Searching city:', city);
-    // Respond with data (e.g., weather information)
-    res.json({ message: `Searching for ${city}...` });
+    console.log('Searching city:', value);
+
+    city = await geoLoc.getLatLon(value);
+    console.log(city);
 });
 
 app.listen(port, () => {

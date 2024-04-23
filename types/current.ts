@@ -1,4 +1,4 @@
-type current = {
+export type Current = {
     "time": string,
     "interval": number,
     "temperature_2m": number,
