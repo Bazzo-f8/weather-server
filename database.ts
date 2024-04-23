@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+import { MongoClient } from 'mongodb'
 export class Database {
     private uri : string;
     private client : typeof MongoClient;
@@ -18,7 +18,7 @@ export class Database {
         }
     }
 
-    public addObjectToDatabase = async (collectionName, object) => {
+    public addObjectToDatabase = async (collectionName : string, object : {}) => {
         try {
             const db = await this.connectToMongoDB();
             const collection = db.collection(collectionName);
