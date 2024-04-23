@@ -11,18 +11,3 @@ app.listen(port, () => {
 });
 
 
-const axios = require('axios');
-
-
-let values = {}
-const getData = async () => {
-    try {
-        const { data: result } = await axios.get(
-            `http://sender:12000/data`
-        );
-        console.log(result+"-------------------------------");
-        values = result;
-    } catch (e) {
-        console.log(e);
-    }
-};
