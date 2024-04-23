@@ -12,4 +12,4 @@ RUN npm install
 COPY . .
 
 # Command to run the application
-CMD ["npx", "ts-node", "producer.js"]
+CMD ["npx", "ts-node", "src/index.js"]
