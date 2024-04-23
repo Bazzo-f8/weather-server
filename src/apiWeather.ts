@@ -4,6 +4,8 @@ export class apiWeather {
 
     public getCurrent = async (lat : number | undefined, lon : number | undefined) => {
         try {
+            console.log("ciaoooooooooooooooooooooooooooo");
+            console.log(lat+"-"+ lon)
             const { data: result } = await axios.get(
                 `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}
 &current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation`

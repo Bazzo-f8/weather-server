@@ -15,7 +15,9 @@ let city: City | undefined = undefined;
 // GET
 app.get('/current', async (req, res) => {
     try {
+        console.log(city?.lat + "------------------");
         const data = await weather.getCurrent(city?.lat, city?.long); // Fetch data using the Axios client
+        console.log(data);
         res.json(data); // Send the data as JSON response
     } catch (error) {
         console.error('Error in route handler:', error);
@@ -55,6 +57,7 @@ app.post('/search-city',async (req, res) => {
 
     city = await geoLoc.getLatLon(value);
     console.log(city);
+    res.json("post city");
 });
 
 app.listen(port, () => {
