@@ -1,9 +1,18 @@
 export type Hourly = {
-    "time": string,
-    "temperature_2m": number
-    "relative_humidity_2m": number
-    "apparent_temperature": number
-    "precipitation_probability": number
-    "precipitation": number
-    "rain": number
+    time: string[],
+    temperature_2m: number[],
+    relative_humidity_2m: number[],
+    apparent_temperature: number[],
+    precipitation_probability: number[],
+    precipitation: number[],
+    pressure_msl: number[],
+    surface_pressure: number[],
+    cloud_cover: number[],
+    visibility: number[],
+    wind_speed_80m: number[],
+    wind_direction_80m: number[],
+    wind_gusts_10m: number[],
+    temperature_80m: number[],
+    soil_temperature_6cm: number[],
+    soil_moisture_3_to_9cm: number[],
 }
