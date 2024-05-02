@@ -56,7 +56,7 @@ router.get('/daily', async (req, res) => {
 // per ottenere lat lon
 router.post('/search-city',async (req, res) => {
     const { value } = req.body;
-    // Process the city data (e.g., query weather API)
+    // Process the city data (e.g., query weather-frontend API)
     console.log('Searching city:', value);
 
     city = await geoLoc.getLatLon(value);
@@ -69,7 +69,7 @@ router.post('/search-city',async (req, res) => {
 // per ottenere la citta nel db cercando per nome
 router.get('/db-city',async (req, res) => {
     const { value } = req.body;
-    // Process the city data (e.g., query weather API)
+    // Process the city data (e.g., query weather-frontend API)
     console.log('Searching city:', value);
     const temp = await geoLoc.getLatLon(value);
     // @ts-ignore
@@ -82,7 +82,7 @@ router.get('/db-city',async (req, res) => {
 // per ottenere la citta nel db cercando per id
 router.get('/search-id',async (req, res) => {
     const { id } = req.body;
-    // Process the city data (e.g., query weather API)
+    // Process the city data (e.g., query weather-frontend API)
     console.log('Searching city:', id);
     // @ts-ignore
     let cityDb = await db.getCityFromDbByID(id);

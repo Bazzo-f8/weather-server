@@ -13,15 +13,15 @@ import {Current} from "../types/current";
 export class Database {
 
     //region Start and Connect to db
-    //private uri : string = 'mongodb://admin:admin@mongodb:27017';
-    private uri : string = 'mongodb://admin:admin@localhost:27017';
+    private uri : string = 'mongodb://admin:admin@mongodb:27017';
+    //private uri : string = 'mongodb://admin:admin@localhost:27017';
 
 
     // Metodo di connessione al DB
     public connectToMongoDB = async () => {
         try {
             await mongoose.connect(this.uri);
-            console.log('Connected to the MongoDB api-weather');
+            console.log('Connected to the MongoDB api-weather-frontend');
         } catch (error) {
             console.error('Error connecting to the MongoDB data-sender-docker:', error);
         }
@@ -75,16 +75,16 @@ export class Database {
 
         try {
             // Use Mongoose's findOneAndUpdate method to find the city by name
-            // and update the current array field by pushing the weather object
+            // and update the current array field by pushing the weather-frontend object
             await CityModel.findOneAndUpdate(
                 { name: city.name }, // Find the city by name
-                { $push: { weatherCurrent: weather } }, // Push the weather object to the current array
+                { $push: { weatherCurrent: weather } }, // Push the weather-frontend object to the current array
                 { new: true } // Return the updated document
             );
 
-            console.log('Current weather added to city successfully.');
+            console.log('Current weather-frontend added to city successfully.');
         } catch (error) {
-            console.error('Error adding current weather to city:', error);
+            console.error('Error adding current weather-frontend to city:', error);
             throw error; // Rethrow the error to be handled by the caller
         }
     }
@@ -100,9 +100,9 @@ export class Database {
                 { $push: { weatherHourly: weather } },
                 { new: true }
             );
-            console.log('Hourly weather added to city successfully.');
+            console.log('Hourly weather-frontend added to city successfully.');
         } catch (error) {
-            console.error('Error adding hourly weather to city:', error);
+            console.error('Error adding hourly weather-frontend to city:', error);
             throw error; // Rethrow the error to be handled by the caller
         }
     }
@@ -120,9 +120,9 @@ export class Database {
                 { new: true }
             );
 
-            console.log('Daily weather added to city successfully.');
+            console.log('Daily weather-frontend added to city successfully.');
         } catch (error) {
-            console.error('Error adding daily weather to city:', error);
+            console.error('Error adding daily weather-frontend to city:', error);
             throw error; // Rethrow the error to be handled by the caller
         }
     }
