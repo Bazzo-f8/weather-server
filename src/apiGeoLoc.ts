@@ -30,5 +30,3 @@ export class apiGeoLoc {
 
 }
 
-// const api = new apiWeather()
-// api.getValues()

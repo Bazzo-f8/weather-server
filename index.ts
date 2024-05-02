@@ -38,7 +38,7 @@ app.get('/current', async (req, res) => {
 
 app.get('/hourly', async (req, res) => {
     try {
-        const data : Hourly | undefined = await weather.getHourly(city?.lat, city?.long); // Fetch data using the Axios client
+        const data : Hourly | undefined = await weather.getHourly(city?.lat, city?.long, req.body.num_days); // Fetch data using the Axios client
         await db.addHourlyToCity(city, data)
         res.json(data); // Send the data as JSON response
     } catch (error) {
@@ -49,7 +49,7 @@ app.get('/hourly', async (req, res) => {
 
 app.get('/daily', async (req, res) => {
     try {
-        const data = await weather.getDaily(city?.lat, city?.long); // Fetch data using the Axios client
+        const data = await weather.getDaily(city?.lat, city?.long, req.body.num_days); // Fetch data using the Axios client
         await db.addDailyToCity(city, data)
         res.json(data); // Send the data as JSON response
     } catch (error) {
@@ -80,6 +80,17 @@ app.get('/db-city',async (req, res) => {
     const temp = await geoLoc.getLatLon(value);
     // @ts-ignore
     let cityDb = await db.getCityFromDb(temp.name);
+    console.log(cityDb);
+
+    res.json(cityDb);
+});
+
+app.get('/search-id',async (req, res) => {
+    const { id } = req.body;
+    // Process the city data (e.g., query weather API)
+    console.log('Searching city:', id);
+    // @ts-ignore
+    let cityDb = await db.getCityFromDbByID(id);
     console.log(cityDb);
 
     res.json(cityDb);

@@ -151,6 +151,24 @@ export class Database {
         }
     }
 
+    public async getCityFromDbByID(id: string | undefined) {
+        try {
+            // Use Mongoose's findOne method to search for a city by name
+            const city = await CityModel.findOne({ _id: id }).exec();
+
+            if (city) {
+                console.log('City found in the database');
+                return city; // Return the found city
+            } else {
+                console.log('City not found in the database.');
+                return null; // Return null if city is not found
+            }
+        } catch (error) {
+            console.error('Error fetching city from the database:', error);
+            throw error; // Rethrow the error to be handled by the caller
+        }
+    }
+
     //endregion
 
     //region User Auth

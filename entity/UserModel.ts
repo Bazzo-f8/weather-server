@@ -12,11 +12,11 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
-    password: {
-        type: String,
-        required: true,
-        minlength: 8, // Enforce a minimum password length
-    },
+    // password: {
+    //     type: String,
+    //     required: true,
+    //     minlength: 8, // Enforce a minimum password length
+    // },
     // favourites: {
     //     type: Array<City>
     // }
