@@ -1,3 +1,5 @@
+
+// Struttura del ritorno della chiamata Daily
 export type Daily = {
     time: string[],
     temperature_2m_max: number[],

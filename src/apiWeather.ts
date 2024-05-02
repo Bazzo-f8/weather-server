@@ -4,17 +4,14 @@ import {Hourly} from "../types/hourly";
 import {Daily} from "../types/daily";
 
 export class apiWeather {
-
+    // api di connessione per ottenere le informazioni del meteo attuale tramite lat e lon
     public getCurrent = async (lat : number | undefined, lon : number | undefined): Promise<Current | undefined> => {
         try {
-            //console.log("ciaoooooooooooooooooooooooooooo");
-            //console.log(lat+"-"+ lon)
-
+            // chiamata axios
             const { data: result } = await axios.get(
                 `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,cloud_cover,pressure_msl,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m`
             );
-            //console.log(result+"-------------------------------");
-            //console.log(result.current);
+
             const cur : Current = {
                 time: result.current.time,
                 temperature_2m: result.current.temperature_2m,
@@ -37,6 +34,7 @@ export class apiWeather {
         }
     };
 
+    // api di connessione per ottenere le informazioni del meteo sulle 24 ore della giornata e su N giorni
     public getHourly = async (lat : number | undefined, lon : number | undefined, nDay : number | undefined) => {
         try {
             const { data: result } = await axios.get(
@@ -68,13 +66,13 @@ export class apiWeather {
         }
     };
 
+    // api di connessione per ottenere le informazioni medie del meteo di N giorni
     public getDaily = async (lat : number | undefined, lon : number | undefined, nDay : number | undefined) => {
         try {
             const { data: result } = await axios.get(
-                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}
-&forecast_days=${nDay}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant`
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&forecast_days=${nDay}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,precipitation_probability_max,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant`
             );
-            //console.log(result);
+
             const day : Daily = {
                 time: result.daily.time,
                 temperature_2m_max: result.daily.temperature_2m_max,
@@ -95,9 +93,5 @@ export class apiWeather {
             console.log(e);
         }
     };
-
-
 }
 
-// const api = new apiWeather()
-// api.getValues()

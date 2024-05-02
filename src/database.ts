@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 import {City} from "../types/city";
 import {CityModel} from "../entity/CityModel";
 import passportLocalMongoose from 'passport-local-mongoose';
@@ -11,29 +10,24 @@ import {Hourly} from "../types/hourly";
 import {Daily} from "../types/daily";
 import {Current} from "../types/current";
 
-
 export class Database {
+
     //region Start and Connect to db
     //private uri : string = 'mongodb://admin:admin@mongodb:27017';
     private uri : string = 'mongodb://admin:admin@localhost:27017';
 
 
-    constructor() {
-    }
-
+    // Metodo di connessione al DB
     public connectToMongoDB = async () => {
         try {
             await mongoose.connect(this.uri);
-            //await this.client.connect();
             console.log('Connected to the MongoDB api-weather');
-            //return "connected"
-            //return this.client.db(); // Return the database reference
         } catch (error) {
             console.error('Error connecting to the MongoDB data-sender-docker:', error);
-            //return "not connected";
         }
     }
 
+    // Metodo per chiudere la connessione al DB
     public closeConnection = async () => {
         mongoose.connection.close()
             .then(() => {
@@ -49,6 +43,7 @@ export class Database {
     ////////////////////////////
 
     //region add City / Weather to db
+    // Metodo per aggiungere una città al db
     public async addCityToDB(city: City | undefined): Promise<void> {
         try {
             if(typeof city === 'undefined') { return }
@@ -72,6 +67,7 @@ export class Database {
         }
     }
 
+    // Metodo per aggiungere il meteo attuale ad una determinata città
     public async addCurrentToCity(city: City | undefined, weather : Current | undefined): Promise<void> {
         if (typeof city === 'undefined') {
             return; // If city is undefined, return early
@@ -93,6 +89,7 @@ export class Database {
         }
     }
 
+    // Metodo per aggiungere il meteo ad ore ad una determinata città
     public async addHourlyToCity(city: City | undefined, weather : Hourly | undefined): Promise<void> {
         if (typeof city === 'undefined') {
             return;
@@ -110,6 +107,7 @@ export class Database {
         }
     }
 
+    // Metodo per aggiungere il meteo di N giorni ad una determinata città
     public async addDailyToCity(city: City | undefined, weather : Daily | undefined): Promise<void> {
         if (typeof city === 'undefined') {
             return;
@@ -131,8 +129,11 @@ export class Database {
 
     //endregion
 
+    ////////////////////////////
+
     //region searchCity
 
+    // Metodo per recuperare una determinata citta tramite il nome
     public async getCityFromDb(name: string | undefined) {
         try {
             // Use Mongoose's findOne method to search for a city by name
@@ -151,6 +152,7 @@ export class Database {
         }
     }
 
+    // Metodo per recuperare una determinata citta tramite l'id
     public async getCityFromDbByID(id: string | undefined) {
         try {
             // Use Mongoose's findOne method to search for a city by name
@@ -171,14 +173,10 @@ export class Database {
 
     //endregion
 
+    ////////////////////////////
+
     //region User Auth
 
     //endregion
 
-
-
-
 }
-
-
-
