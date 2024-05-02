@@ -14,6 +14,8 @@ const weather = new apiWeather();
 const geoLoc = new apiGeoLoc();
 let city: City | undefined = undefined;
 
+
+//region Api per prendere il meteo
 router.get('/current', async (req, res) => {
     try {
         //console.log(city?.lat + "------------------");
@@ -49,7 +51,9 @@ router.get('/daily', async (req, res) => {
 });
 //endregion
 
-//region searchCity
+//region Cercare la citta
+
+// per ottenere lat lon
 router.post('/search-city',async (req, res) => {
     const { value } = req.body;
     // Process the city data (e.g., query weather API)
@@ -61,8 +65,8 @@ router.post('/search-city',async (req, res) => {
 
     res.json("post city");
 });
-//endregion
 
+// per ottenere la citta nel db cercando per nome
 router.get('/db-city',async (req, res) => {
     const { value } = req.body;
     // Process the city data (e.g., query weather API)
@@ -75,6 +79,7 @@ router.get('/db-city',async (req, res) => {
     res.json(cityDb);
 });
 
+// per ottenere la citta nel db cercando per id
 router.get('/search-id',async (req, res) => {
     const { id } = req.body;
     // Process the city data (e.g., query weather API)
@@ -86,10 +91,7 @@ router.get('/search-id',async (req, res) => {
     res.json(cityDb);
 });
 
-
-
-
-
+//endregion
 
 
 module.exports = router;
