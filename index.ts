@@ -5,7 +5,7 @@ import cors from 'cors';
 const app = express();
 app.use(bodyParser.json());
 app.use(cors({
-    origin: 'http://localhost:9000', // Allow requests from Quasar app origin
+    origin: 'http://localhost:9000', // Allow requests from Quasar app
 }));
 
 const port = 3000;
